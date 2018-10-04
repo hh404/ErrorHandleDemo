@@ -1,0 +1,21 @@
+PODS:
+  - Alamofire (4.7.2)
+  - ErrorHandler (0.8.1):
+    - ErrorHandler/Core (= 0.8.1)
+  - ErrorHandler/Alamofire (0.8.1):
+    - Alamofire (~> 4.1)
+    - ErrorHandler/Core
+  - ErrorHandler/Core (0.8.1)
+
+DEPENDENCIES:
+  - Alamofire
+  - ErrorHandler
+  - ErrorHandler/Alamofire
+
+SPEC CHECKSUMS:
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  ErrorHandler: 04b1be7ec6e57e11f7382021f0760d0dbb84fdb6
+
+PODFILE CHECKSUM: 9ca4645baba3e1fc4035661d72e8ad85ddfda503
+
+COCOAPODS: 1.3.1
