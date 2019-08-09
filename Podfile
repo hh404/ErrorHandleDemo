@@ -6,9 +6,10 @@ target 'ErrorHandleDemo' do
   use_frameworks!
 
   # Pods for ErrorHandleDemo
-pod 'ErrorHandler'
+#  pod 'ErrorHandler', :path=> "/Pods/"
 pod 'Alamofire'
-pod 'ErrorHandler/Alamofire'
+#pod 'ErrorHandler/Alamofire', :path=> "/Pods/"
+pod 'HandyJSON', '~> 4.2.0'
   target 'ErrorHandleDemoTests' do
     inherit! :search_paths
     # Pods for testing

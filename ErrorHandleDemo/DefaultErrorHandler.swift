@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ErrorHandler
+//import ErrorHandler
 
 protocol LoggableError: Error {
     var loggableDescripiton: String { get }
@@ -55,5 +55,29 @@ extension ErrorHandler {
                 print((error as? LoggableError)?.loggableDescripiton ?? error.localizedDescription)
                 return .continueMatching
             })
+    }
+    
+    static func defaultHandle(_ code: String) -> ErrorHandler {
+        return ErrorHandler().onHansError(apiName: "originError.apiName", status: 400, code: code, do: { (error) -> MatchingPolicy in
+            let hanError: HansHttpError? = error as? HansHttpError
+            if let hanError = hanError {
+                let showType = ErrorMapManager.shared.showType(hanError)
+                switch showType {
+                case .none:
+                    AlertManager.showAlert(title: "none", message: String.init(format: "title:%@content:%@action:%@", ErrorMapManager.shared.titleForError(hanError) ?? "",ErrorMapManager.shared.content(hanError) ?? "",ErrorMapManager.shared.confirmAction(hanError).first?.rawValue ?? ""))
+                    break
+                case .toast:
+                    AlertManager.showAlert(title: "toast",message: String.init(format: "title:%@content:%@action:%@", ErrorMapManager.shared.titleForError(hanError) ?? "",ErrorMapManager.shared.content(hanError) ?? "",ErrorMapManager.shared.confirmAction(hanError).first?.rawValue  ?? ""))
+                    break
+                case .dialogue:
+                    AlertManager.showAlert(title: "dialogue", message: String.init(format: "title:%@content:%@action:%@", ErrorMapManager.shared.titleForError(hanError) ?? "",ErrorMapManager.shared.content(hanError) ?? "",ErrorMapManager.shared.confirmAction(hanError).first?.rawValue  ?? ""))
+                    break
+                case .custom:
+                    AlertManager.showAlert(title: "custom", message: String.init(format: "title:%@content:%@action:%@", ErrorMapManager.shared.titleForError(hanError) ?? "",ErrorMapManager.shared.content(hanError) ?? "",ErrorMapManager.shared.confirmAction(hanError).first?.rawValue  ?? ""))
+                    return .stopMatching
+                }
+            }
+            return .continueMatching
+        })
     }
 }

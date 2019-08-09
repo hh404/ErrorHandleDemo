@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ErrorHandler
+//import ErrorHandler
 import Alamofire
 
 class ErrorHandlingTableViewController: UITableViewController {
@@ -18,11 +18,16 @@ class ErrorHandlingTableViewController: UITableViewController {
         (AFError(statusCode: 400), "400 (4xx client errors)"),
         (AFError(statusCode: 402), "401 (4xx client errors)"),
         (AFError(statusCode: 500), "500"),
-        (CustomError.parsingError, "Parsing error")
+        (CustomError.parsingError, "Parsing error"),
+        (HansHttpError.init(apiName: "A11", status: 400, errorCode: "business code three"), "400")
     ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let errorJsonString = try! String.init(contentsOfFile: Bundle.main.path(forResource: "error", ofType: "json")!, encoding: String.Encoding.utf8)
+        print(errorJsonString)
+        ErrorMapManager.shared
+        
     }
 
     // MARK: - Table view data source
@@ -64,8 +69,10 @@ class ErrorHandlingTableViewController: UITableViewController {
                 })
                 .handle(error)
         default:
-            ErrorHandler.default
-                .handle(error)
+            
+                    ErrorHandler.defaultHandle("business code three").handle(error)
+           // ErrorHandler.default
+//                .handle(error)
         }
     }
 }

@@ -10,7 +10,8 @@
 #endif
 #endif
 
+#import "HandyJSON.h"
 
-FOUNDATION_EXPORT double ErrorHandlerVersionNumber;
-FOUNDATION_EXPORT const unsigned char ErrorHandlerVersionString[];
+FOUNDATION_EXPORT double HandyJSONVersionNumber;
+FOUNDATION_EXPORT const unsigned char HandyJSONVersionString[];
 
